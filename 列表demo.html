@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="header">
+        <p><label for="">id</label> <input type="text" v-model="id" /></p>
+        <p><label for="">名字</label> <input type="text" v-model="name" /></p>
+        <p>
+          <label for="">搜索</label> <input type="text" v-model="keyword" />
+        </p>
+        <p><button @click="add">添加</button></p>
+      </div>
+
+      <table border="1" cellpadding="6" cellspacing="0">
+        <tr>
+          <th>id</th>
+          <th>名字</th>
+          <th>创建时间</th>
+          <th>操作</th>
+        </tr>
+        <tr v-for="item in search()">
+          <td>{{ item.id }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.ctime | dateFormate }}</td>
+          <td><a href="#" @click="del(item.id)">删除</a></td>
+        </tr>
+      </table>
+
+      <hr />
+      <input type="text" v-focus />
+    </div>
+  </body>
+  <script>
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        msg: "hello world",
+        id: "",
+        name: "",
+        list: [
+          { id: 1, name: "张三", ctime: new Date() },
+          { id: 2, name: "李四", ctime: new Date() }
+        ],
+        keyword: ""
+      },
+      methods: {
+        add: function() {
+          var id = this.id;
+          var name = this.name;
+          this.list.push({ id: id, name: name });
+        },
+        del: function(id) {
+          for (let i = 0; i < this.list.length; i++) {
+            if (this.list[i].id == id) {
+              this.list.splice(i, 1);
+            }
+          }
+        },
+        search: function() {
+          var newList = [];
+          for (let i = 0; i < this.list.length; i++) {
+            // 这里的 includes 判断空字符串为 true
+            if (this.list[i].name.includes(this.keyword)) {
+              newList.push(this.list[i]);
+            }
+          }
+          return newList;
+        }
+      },
+      filters: {
+        dateFormate: function(date, pattern = "") {
+          var year = date.getFullYear();
+          var month = date.getMonth() + 1;
+          var day = date.getDate();
+          if (pattern == "yyyy-mm-dd") {
+            return `${year}-${month}-${day}`;
+          } else {
+            var hour = date.getHours();
+            var minute = date.getMinutes();
+            var second = date.getSeconds();
+            return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+          }
+        }
+      },
+      directives: {
+        focus: {
+          inserted: function(ele) {
+            ele.focus();
+          }
+        }
+      }
+    });
+  </script>
+</html>

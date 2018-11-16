@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+  </head>
+  <style>
+    .outer {
+      height: 200px;
+      width: 200px;
+      background-color: lightblue;
+    }
+    .inner {
+      height: 20px;
+      width: 20px;
+      background-color: lightgreen;
+    }
+  </style>
+  <body>
+    <div id="app">
+      <div>
+        <div @click="outer" class="outer">
+          <div @click="inner" class="inner"></div>
+        </div>
+      </div>
+      <hr />
+      阻止冒泡
+      <div>
+        <div @click="outer" class="outer">
+          <div @click.stop="inner" class="inner"></div>
+        </div>
+      </div>
+      <hr />
+      捕捉事件
+      <div>
+        <div @click.capture="outer" class="outer">
+          <div @click="inner" class="inner"></div>
+        </div>
+      </div>
+      <hr />
+      只触发一次
+      <div>
+        <div @click.once="outer" class="outer">
+          <div @click.once="inner" class="inner"></div>
+        </div>
+      </div>
+      <hr />
+      阻止默认行为
+      <div>
+        <a href="http://www.baidu.com">百度一下 没阻止</a> <br />
+        <a href="http://www.baidu.com" @click.prevent>百度一下 阻止了</a>
+      </div>
+    </div>
+  </body>
+  <script>
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        msg: "hello world"
+      },
+      methods: {
+        outer: function() {
+          alert("这是 outer");
+        },
+        inner: function() {
+          alert("这是 inner");
+        }
+      }
+    });
+  </script>
+</html>

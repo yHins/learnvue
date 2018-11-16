@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <!--
+      <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script>
+    -->
+    <script src="./lib/vue-2.4.0.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>---{{ msg }}--</h1>
+      <hr />
+      <h1 v-text="msg">--text--</h1>
+      <hr />
+      <h1 v-html="msg">--html--</h1>
+    </div>
+  </body>
+  <script>
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        msg: "<i>hello world</i>"
+      }
+    });
+  </script>
+</html>
