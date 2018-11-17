@@ -34,10 +34,19 @@
       </table>
 
       <hr />
-      <input type="text" v-focus />
+      <input type="text" v-focus2 />
     </div>
+
+    <div id="app2"></div>
   </body>
   <script>
+    // Vue.filters('focus2', function(data, ))
+    Vue.directive("focus2", {
+      inserted: function(ele) {
+        ele.focus();
+      }
+    });
+
     var vm = new Vue({
       el: "#app",
       data: {
@@ -96,6 +105,10 @@
           }
         }
       }
+    });
+
+    var vm2 = new Vue({
+      el: "#app2"
     });
   </script>
 </html>
