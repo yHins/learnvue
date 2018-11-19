@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <!--
+      当导入路由的 js 包，浏览器内存中会多出一个 VueRouter 的构造函数，可以通过此函数来创建路由的匹配规则
+    -->
+    <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 默认是渲染成 a 标签 -->
+      <router-link to="/login">登录</router-link>
+      <router-link to="/register">注册</router-link>
+      <!-- 相当于渲染成以下组件 -->
+      <a href="#/login"> 登录</a> <a href="#/register"> 注册</a>
+
+      <!-- router-view 组件是路由匹配的占位符 -->
+      <!-- 当匹配到对应的路由时，路由匹配的内容会替换view-router, -->
+      <!-- router-view 相当于路由匹配存放内容的容器 -->
+      <router-view></router-view>
+    </div>
+  </body>
+  <script>
+    var login = {
+      template: "<h1>登录组件</h1>"
+    };
+
+    var register = {
+      template: "<h1>注册组件</h1>"
+    };
+
+    const router = new VueRouter({
+      routes: [
+        // {path: 匹配的路径, component: 匹配的组件}
+        { path: "/login", component: login },
+        { path: "/register", component: register }
+      ]
+    });
+    var vm = new Vue({
+      el: "#app",
+      //  需要把路由队形挂载到 Vue 实例身上，这样 vue 才会感知 URL 的变换，从而展示对应的组件内容
+      router: router
+    });
+  </script>
+</html>

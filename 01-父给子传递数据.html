@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+  </head>
+
+  <body>
+    <div id="app"><son :parentmsg="pmsg"></son></div>
+  </body>
+  <script>
+    var son = {
+      template: "<div>{{ sonmsg }} {{ parentmsg }}</div>",
+      data: function() {
+        return {
+          sonmsg: "儿子数据"
+        };
+      },
+      props: ["parentmsg"]
+    };
+
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        pmsg: "parent data"
+      },
+      components: {
+        son: son
+      }
+    });
+  </script>
+</html>
